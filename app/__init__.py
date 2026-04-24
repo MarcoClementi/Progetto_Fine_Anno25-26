@@ -1,1 +1,0 @@
-# Pacchetto repositories — Repository Pattern
