@@ -1,0 +1,229 @@
+[
+  {
+    "nome": "Fotovoltaico",
+    "descrizione": "Impianti solari fotovoltaici per la produzione di energia",
+    "icona": "☀️",
+    "domande": [
+      {
+        "testo": "Quanti kW desideri installare?",
+        "tipo_input": "select",
+        "opzioni": ["3 kW", "4.5 kW", "6 kW", "9 kW", "12 kW o più"],
+        "ordine": 1
+      },
+      {
+        "testo": "Che tipo di tetto ha la tua abitazione?",
+        "tipo_input": "select",
+        "opzioni": ["Tegole (spiovente)", "Piano (lastrico solare)", "Lamiera metallica"],
+        "ordine": 2
+      },
+      {
+        "testo": "Sei connesso alla rete elettrica nazionale?",
+        "tipo_input": "select",
+        "opzioni": ["Sì, connesso alla rete", "No, voglio impianto off-grid"],
+        "ordine": 3
+      },
+      {
+        "testo": "Vuoi includere un sistema di accumulo (batterie)?",
+        "tipo_input": "select",
+        "opzioni": ["Sì, con batterie", "No, solo pannelli"],
+        "ordine": 4
+      }
+    ],
+    "prezzi": {
+      "base_min": 4000,
+      "base_max": 6000,
+      "moltiplicatori": {
+        "3 kW": 1.0,
+        "4.5 kW": 1.4,
+        "6 kW": 1.8,
+        "9 kW": 2.5,
+        "12 kW o più": 3.2,
+        "con batterie": 1.5
+      }
+    }
+  },
+  {
+    "nome": "Caldaie",
+    "descrizione": "Sostituzione e installazione caldaie e impianti termici",
+    "icona": "🔥",
+    "domande": [
+      {
+        "testo": "Quanti metri quadri ha la tua abitazione?",
+        "tipo_input": "select",
+        "opzioni": ["Fino a 80 mq", "80–120 mq", "120–200 mq", "Oltre 200 mq"],
+        "ordine": 1
+      },
+      {
+        "testo": "Che tipo di combustibile usi attualmente?",
+        "tipo_input": "select",
+        "opzioni": ["Gas metano", "GPL", "Gasolio", "Pompa di calore"],
+        "ordine": 2
+      },
+      {
+        "testo": "Hai preferenze sulla marca della caldaia?",
+        "tipo_input": "select",
+        "opzioni": ["No, qualsiasi marca", "Baxi", "Vaillant", "Immergas", "Ferroli"],
+        "ordine": 3
+      }
+    ],
+    "prezzi": {
+      "base_min": 1500,
+      "base_max": 2500,
+      "moltiplicatori": {
+        "Fino a 80 mq": 1.0,
+        "80–120 mq": 1.3,
+        "120–200 mq": 1.6,
+        "Oltre 200 mq": 2.0
+      }
+    }
+  },
+  {
+    "nome": "Climatizzatori",
+    "descrizione": "Installazione e sostituzione climatizzatori e split",
+    "icona": "❄️",
+    "domande": [
+      {
+        "testo": "Quanti metri quadri deve climatizzare l'impianto?",
+        "tipo_input": "select",
+        "opzioni": ["Fino a 30 mq", "30–60 mq", "60–100 mq", "Oltre 100 mq"],
+        "ordine": 1
+      },
+      {
+        "testo": "Quante unità split ti servono?",
+        "tipo_input": "select",
+        "opzioni": ["1 split", "2 split", "3 split", "4 o più split"],
+        "ordine": 2
+      },
+      {
+        "testo": "Preferisci un'unità monosplit o multisplit?",
+        "tipo_input": "select",
+        "opzioni": ["Monosplit (1 unità esterna)", "Multisplit (1 esterna + più interne)"],
+        "ordine": 3
+      }
+    ],
+    "prezzi": {
+      "base_min": 800,
+      "base_max": 1500,
+      "moltiplicatori": {
+        "1 split": 1.0,
+        "2 split": 1.8,
+        "3 split": 2.5,
+        "4 o più split": 3.2
+      }
+    }
+  },
+  {
+    "nome": "Ristrutturazioni",
+    "descrizione": "Ristrutturazioni edili, bagni, cucine e ambienti",
+    "icona": "🏠",
+    "domande": [
+      {
+        "testo": "Quanti metri quadri riguarda la ristrutturazione?",
+        "tipo_input": "select",
+        "opzioni": ["Fino a 30 mq", "30–60 mq", "60–100 mq", "100–150 mq", "Oltre 150 mq"],
+        "ordine": 1
+      },
+      {
+        "testo": "Che tipo di lavori ti servono?",
+        "tipo_input": "select",
+        "opzioni": ["Solo tinteggiatura", "Rifacimento pavimenti", "Bagno completo", "Cucina completa", "Ristrutturazione totale"],
+        "ordine": 2
+      },
+      {
+        "testo": "Ci sono lavori strutturali previsti (pareti, travi, ecc.)?",
+        "tipo_input": "select",
+        "opzioni": ["No, solo finiture", "Sì, lavori leggeri", "Sì, lavori importanti"],
+        "ordine": 3
+      }
+    ],
+    "prezzi": {
+      "base_min": 500,
+      "base_max": 900,
+      "moltiplicatori": {
+        "Fino a 30 mq": 1.0,
+        "30–60 mq": 1.8,
+        "60–100 mq": 2.8,
+        "100–150 mq": 4.0,
+        "Oltre 150 mq": 5.5,
+        "Ristrutturazione totale": 1.8
+      }
+    }
+  },
+  {
+    "nome": "Infissi",
+    "descrizione": "Sostituzione finestre, porte e serramenti",
+    "icona": "🪟",
+    "domande": [
+      {
+        "testo": "Quante finestre/porte devi sostituire?",
+        "tipo_input": "select",
+        "opzioni": ["1–2 finestre", "3–5 finestre", "6–10 finestre", "Più di 10"],
+        "ordine": 1
+      },
+      {
+        "testo": "Che materiale preferisci?",
+        "tipo_input": "select",
+        "opzioni": ["PVC", "Alluminio", "Legno", "Legno-Alluminio"],
+        "ordine": 2
+      },
+      {
+        "testo": "Vuoi il vetro doppio o triplo?",
+        "tipo_input": "select",
+        "opzioni": ["Doppio vetro (standard)", "Triplo vetro (alta efficienza)"],
+        "ordine": 3
+      }
+    ],
+    "prezzi": {
+      "base_min": 400,
+      "base_max": 700,
+      "moltiplicatori": {
+        "1–2 finestre": 1.5,
+        "3–5 finestre": 4.0,
+        "6–10 finestre": 7.0,
+        "Più di 10": 11.0,
+        "Triplo vetro (alta efficienza)": 1.35,
+        "Legno": 1.4,
+        "Legno-Alluminio": 1.6
+      }
+    }
+  },
+  {
+    "nome": "Impianti Elettrici",
+    "descrizione": "Installazione e rifacimento impianti elettrici civili",
+    "icona": "⚡",
+    "domande": [
+      {
+        "testo": "Quanti metri quadri ha l'immobile?",
+        "tipo_input": "select",
+        "opzioni": ["Fino a 50 mq", "50–100 mq", "100–150 mq", "Oltre 150 mq"],
+        "ordine": 1
+      },
+      {
+        "testo": "Che tipo di intervento ti serve?",
+        "tipo_input": "select",
+        "opzioni": ["Impianto nuovo da zero", "Rifacimento completo", "Adeguamento parziale", "Aggiunta prese/punti luce"],
+        "ordine": 2
+      },
+      {
+        "testo": "Vuoi includere domotica o impianto fotovoltaico collegato?",
+        "tipo_input": "select",
+        "opzioni": ["No, impianto standard", "Sì, con domotica base", "Sì, con domotica avanzata"],
+        "ordine": 3
+      }
+    ],
+    "prezzi": {
+      "base_min": 1200,
+      "base_max": 2000,
+      "moltiplicatori": {
+        "Fino a 50 mq": 1.0,
+        "50–100 mq": 1.7,
+        "100–150 mq": 2.4,
+        "Oltre 150 mq": 3.2,
+        "Impianto nuovo da zero": 1.5,
+        "Rifacimento completo": 1.3,
+        "con domotica base": 1.2,
+        "con domotica avanzata": 1.6
+      }
+    }
+  }
+]

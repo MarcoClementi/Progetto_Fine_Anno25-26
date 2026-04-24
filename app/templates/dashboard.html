@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Lead – SmartPreventivo Admin</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+<div class="admin-layout">
+
+  <!-- ── Sidebar ──────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">Smart<span>Preventivo</span></div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-link active" href="{{ url_for('admin.dashboard') }}">
+        <span class="icon">📋</span> Lead
+      </a>
+      <a class="sidebar-link" href="{{ url_for('admin.export_csv') }}">
+        <span class="icon">📤</span> Esporta CSV
+      </a>
+      <a class="sidebar-link" href="/" target="_blank">
+        <span class="icon">🌐</span> Vedi sito
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="{{ url_for('admin.logout') }}">🚪 Logout ({{ current_user.nome }})</a>
+    </div>
+  </aside>
+
+  <!-- ── Contenuto principale ─────────────────────────────────── -->
+  <main class="admin-main">
+
+    <!-- Header pagina -->
+    <div class="page-header">
+      <h1 class="page-title">📋 Lead ricevuti</h1>
+      <a class="btn-export" href="{{ url_for('admin.export_csv',
+           categoria_id=filtro_cat or '', stato=filtro_stato or '') }}">
+        ⬇️ Esporta CSV
+      </a>
+    </div>
+
+    <!-- Statistiche rapide -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Totale lead</div>
+        <div class="stat-value">{{ totale }}</div>
+      </div>
+      <div class="stat-card stat-arancione">
+        <div class="stat-label">Nuovi</div>
+        <div class="stat-value">{{ nuovi }}</div>
+      </div>
+      <div class="stat-card stat-verde">
+        <div class="stat-label">Sopralluoghi richiesti</div>
+        <div class="stat-value">{{ sopralluoghi }}</div>
+      </div>
+    </div>
+
+    <!-- Filtri -->
+    <form class="filtri-bar" method="GET" action="{{ url_for('admin.dashboard') }}">
+      <label>Categoria:</label>
+      <select class="filtri-select" name="categoria_id">
+        <option value="">Tutte</option>
+        {% for cat in categorie %}
+          <option value="{{ cat.id }}"
+            {% if filtro_cat == cat.id %}selected{% endif %}>
+            {{ cat.icona }} {{ cat.nome }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <label>Stato:</label>
+      <select class="filtri-select" name="stato">
+        <option value="">Tutti</option>
+        <option value="nuovo"          {% if filtro_stato == 'nuovo' %}selected{% endif %}>Nuovo</option>
+        <option value="in_lavorazione" {% if filtro_stato == 'in_lavorazione' %}selected{% endif %}>In lavorazione</option>
+        <option value="chiuso"         {% if filtro_stato == 'chiuso' %}selected{% endif %}>Chiuso</option>
+        <option value="perso"          {% if filtro_stato == 'perso' %}selected{% endif %}>Perso</option>
+      </select>
+
+      <button class="btn-filtro" type="submit">Filtra</button>
+      <a class="btn-reset" href="{{ url_for('admin.dashboard') }}">Reset</a>
+    </form>
+
+    <!-- Tabella lead -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nome cliente</th>
+            <th>Categoria</th>
+            <th>Stima (€)</th>
+            <th>Stato</th>
+            <th>Sopralluogo</th>
+            <th>Data</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for l in lead %}
+          <tr>
+            <td>{{ l.id }}</td>
+            <td class="td-nome">{{ l.nome_cliente }}</td>
+            <td>
+              {% if l.categoria %}
+                {{ l.categoria.icona }} {{ l.categoria.nome }}
+              {% else %}–{% endif %}
+            </td>
+            <td>
+              {% if l.stima_min and l.stima_max %}
+                {{ l.stima_min | int | string }} – {{ l.stima_max | int | string }}
+              {% else %}–{% endif %}
+            </td>
+            <td>
+              <span class="badge badge-{{ l.stato_lead }}">{{ l.stato_lead }}</span>
+            </td>
+            <td>
+              {% if l.sopralluogo_richiesto %}
+                <span class="sopralluogo-si">✅ Sì</span>
+              {% else %}
+                <span class="sopralluogo-no">–</span>
+              {% endif %}
+            </td>
+            <td>{{ l.data_creazione.strftime('%d/%m/%Y %H:%M') }}</td>
+            <td class="td-azioni">
+              <a href="{{ url_for('admin.dettaglio_lead', lead_id=l.id) }}">Dettaglio →</a>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="8" style="text-align:center;padding:40px;color:var(--grigio-md);">
+              Nessun lead trovato con i filtri selezionati.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

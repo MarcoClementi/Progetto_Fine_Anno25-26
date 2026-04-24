@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lead #{{ lead.id }} – SmartPreventivo Admin</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+<div class="admin-layout">
+
+  <!-- ── Sidebar ──────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">Smart<span>Preventivo</span></div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-link active" href="{{ url_for('admin.dashboard') }}">
+        <span class="icon">📋</span> Lead
+      </a>
+      <a class="sidebar-link" href="{{ url_for('admin.export_csv') }}">
+        <span class="icon">📤</span> Esporta CSV
+      </a>
+      <a class="sidebar-link" href="/" target="_blank">
+        <span class="icon">🌐</span> Vedi sito
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="{{ url_for('admin.logout') }}">🚪 Logout ({{ current_user.nome }})</a>
+    </div>
+  </aside>
+
+  <!-- ── Contenuto principale ─────────────────────────────────── -->
+  <main class="admin-main">
+
+    <a class="btn-back" href="{{ url_for('admin.dashboard') }}">← Torna ai lead</a>
+
+    <div class="page-header">
+      <h1 class="page-title">Lead #{{ lead.id }} · {{ lead.nome_cliente }}</h1>
+      <span class="badge badge-{{ lead.stato_lead }}">{{ lead.stato_lead }}</span>
+    </div>
+
+    <!-- Dati contatto -->
+    <div class="detail-card">
+      <h2>👤 Dati del cliente</h2>
+
+      <div class="detail-row">
+        <span class="detail-key">Nome</span>
+        <span class="detail-val">{{ lead.nome_cliente }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Email</span>
+        <span class="detail-val">
+          <a href="mailto:{{ lead.email_cliente }}" style="color:var(--arancione);">
+            {{ lead.email_cliente }}
+          </a>
+        </span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Telefono</span>
+        <span class="detail-val">
+          <a href="tel:{{ lead.telefono_cliente }}" style="color:var(--arancione);">
+            {{ lead.telefono_cliente }}
+          </a>
+        </span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Categoria</span>
+        <span class="detail-val">
+          {% if lead.categoria %}
+            {{ lead.categoria.icona }} {{ lead.categoria.nome }}
+          {% else %}–{% endif %}
+        </span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Data richiesta</span>
+        <span class="detail-val">{{ lead.data_creazione.strftime('%d/%m/%Y alle %H:%M') }}</span>
+      </div>
+    </div>
+
+    <!-- Stima -->
+    <div class="detail-card">
+      <h2>💰 Stima calcolata</h2>
+
+      <div class="detail-row">
+        <span class="detail-key">Range stima</span>
+        <span class="detail-val stima-highlight">
+          {% if lead.stima_min and lead.stima_max %}
+            € {{ lead.stima_min | int | string }} – € {{ lead.stima_max | int | string }}
+          {% else %}
+            Non disponibile
+          {% endif %}
+        </span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Sopralluogo richiesto</span>
+        <span class="detail-val">
+          {% if lead.sopralluogo_richiesto %}
+            <span class="sopralluogo-si">✅ Sì — contattare entro 24 ore</span>
+          {% else %}
+            <span class="sopralluogo-no">No</span>
+          {% endif %}
+        </span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Stato lead</span>
+        <span class="detail-val">
+          <span class="badge badge-{{ lead.stato_lead }}">{{ lead.stato_lead }}</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Risposte alle domande guidate -->
+    {% if risposte %}
+    <div class="detail-card">
+      <h2>📝 Risposte alle domande</h2>
+
+      {% for risposta in risposte %}
+      <div class="detail-row">
+        <span class="detail-key">
+          {% if risposta.domanda %}
+            {{ risposta.domanda.testo[:50] }}{% if risposta.domanda.testo|length > 50 %}…{% endif %}
+          {% else %}
+            Domanda #{{ risposta.domanda_id }}
+          {% endif %}
+        </span>
+        <span class="detail-val">{{ risposta.valore }}</span>
+      </div>
+      {% endfor %}
+
+    </div>
+    {% endif %}
+
+    <!-- Azioni rapide -->
+    <div class="detail-card">
+      <h2>⚡ Azioni rapide</h2>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+        <a href="mailto:{{ lead.email_cliente }}" class="btn-export">
+          ✉️ Scrivi email al cliente
+        </a>
+        <a href="tel:{{ lead.telefono_cliente }}" class="btn-export">
+          📞 Chiama
+        </a>
+        <a href="{{ url_for('admin.export_csv') }}" class="btn-export">
+          ⬇️ Esporta tutti i lead
+        </a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

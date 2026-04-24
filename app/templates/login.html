@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Admin – SmartPreventivo</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+  <div class="login-page">
+    <div class="login-card">
+
+      <div class="login-logo">Smart<span>Preventivo</span></div>
+      <div class="login-sub">Accedi al pannello amministrativo</div>
+
+      <!-- Flash messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+          <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endwith %}
+
+      <form method="POST" action="{{ url_for('admin.login') }}">
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-input" type="email" id="email" name="email"
+                 placeholder="admin@smartpreventivo.it" required autofocus>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input class="form-input" type="password" id="password" name="password"
+                 placeholder="••••••••" required>
+        </div>
+
+        <button class="btn-login" type="submit">🔐 Accedi</button>
+
+      </form>
+
+      <p style="text-align:center;margin-top:20px;font-size:.8rem;color:var(--grigio-md);">
+        <a href="/" style="color:var(--arancione);text-decoration:none;">← Torna al sito</a>
+      </p>
+
+    </div>
+  </div>
+
+</body>
+</html>
