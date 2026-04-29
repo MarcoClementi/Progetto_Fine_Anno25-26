@@ -160,9 +160,9 @@ I casi d'uso non devono essere confusi con i rapporti tra attori. Nel nostro pro
 ```mermaid
 graph TD
     %% Attori
-    V(["👤 Visitatore"])
-    U(["👤 Utente"])
-    A(["🏢 Amministratore"])
+    V([" Visitatore"])
+    U([" Utente"])
+    A([" Amministratore"])
 
     %% Generalizzazione tra attori: Utente è specializzazione di Visitatore
     V -->|generalizzazione| U
