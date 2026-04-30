@@ -158,53 +158,33 @@ I casi d'uso non devono essere confusi con i rapporti tra attori. Nel nostro pro
 ### 6.4 Diagramma dei casi d'uso
 
 ```mermaid
-graph TD
-    %% Attori
-    V([" Visitatore"])
-    U([" Utente"])
-    A([" Amministratore"])
-
-    %% Generalizzazione tra attori: Utente è specializzazione di Visitatore
-    V -->|generalizzazione| U
-
-    subgraph Sistema SmartPreventivo
+flowchart TB
+ subgraph subGraph["Sistema SmartPreventivo"]
         UC1("Avvia chat")
-        UC2("Seleziona categoria lavoro")
-        UC3("Rispondi alle domande guidate")
-        UC4("Inserisci dati di contatto")
-        UC5("Visualizza stima e riepilogo")
-        UC6("Richiedi sopralluogo")
-        UC7("Login amministratore")
-        UC8("Gestisci lead")
+        UC2("Rispondi alle domande guidate")
+        UC5("Inserisci dati di contatto")
+        UC3("Visualizza stima e riepilogo")
+        UC4("Richiedi sopralluogo")
+        UC7("Verifica autenticazione admin")
         UC9("Esporta lead in CSV")
+        UC8("Gestisci lead")
+  end
+    V(["Visitatore"]) -- generalizzazione --> U(["Utente"])
+    V --> UC1 & UC2 
+    A(["Amministratore"]) --> UC7  
+      
+    UC7 -. &lt;&gt; .-> UC8
+  
+   
+     %% Relazioni include
+    UC1 -.->|"<<include>>"| UC2
+    UC4 -.->|"<<include>>"| UC5
 
-        INC1("Verifica formato email/telefono")
-        INC2("Verifica autenticazione admin")
-        INC3("Salva risposta in sessione")
-    end
-
-    %% Associazioni Visitatore
-    V --> UC1
-    V --> UC2
-    V --> UC3
-    V --> UC4
-    V --> UC5
-
-    %% Associazioni Utente (specializzazione di Visitatore)
-    U --> UC6
-
-    %% Associazioni Amministratore
-    A --> UC7
-    A --> UC8
-
-    %% Relazioni include
-    UC4 -.->|"<<include>>"| INC1
-    UC8 -.->|"<<include>>"| INC2
-    UC3 -.->|"<<include>>"| INC3
 
     %% Relazioni extend
-    UC6 -.->|"<<extend>>"| UC5
     UC9 -.->|"<<extend>>"| UC8
+    UC2 -.->|"<<extend>>"| UC3
+    UC3 -.->|"<<extend>>"| UC4
 ```
 
 ---
