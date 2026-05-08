@@ -137,23 +137,25 @@ Il collegamento alle materie di indirizzo è il seguente:
 
 ### 6.3 Relazioni tra casi d'uso: include ed extend
 
-In un diagramma dei casi d'uso si usano due tipi di relazioni aggiuntive:
+Le relazioni di **include** ed **extend** permettono di definire con precisione il flusso logico del sistema, distinguendo tra passaggi obbligatori e funzionalità opzionali.
 
-- `<<include>>`: rappresenta un comportamento **obbligatorio** riutilizzabile. Un caso d'uso base include un altro quando quel comportamento è **sempre** eseguito.
-- `<<extend>>`: rappresenta un comportamento **opzionale o condizionale** che si aggiunge al caso d'uso base solo in certe condizioni.
+#### 1. Relazioni di inclusione (`<<include>>`)
+La relazione di *include* indica che il caso d'uso base **richiede necessariamente** il comportamento del caso d'uso incluso per completare il suo compito. Nel progetto *SmartPreventivo*, le principali sono:
 
-I casi d'uso non devono essere confusi con i rapporti tra attori. Nel nostro progetto, `Utente` è un attore specializzato di `Visitatore`: può fare tutto ciò che fa un Visitatore, più alcune azioni aggiuntive. Questo si modella con una **generalizzazione tra attori**, non con `include` o `extend`.
+*   **Inserisci dati di contatto $\rightarrow$ Verifica formato dati**  
+    Ogni volta che l'utente inserisce i propri recapiti, il sistema deve obbligatoriamente validare email e telefono per poter procedere al salvataggio.
+*   **Gestisci lead $\rightarrow$ Verifica autenticazione admin**  
+    L'accesso alla dashboard di gestione è subordinato al superamento del controllo di sicurezza; non è possibile visualizzare o modificare i lead senza essere autenticati.
+*   **Rispondi alle domande guidate $\rightarrow$ Salva risposta in sessione**  
+    Per garantire la continuità dell'esperienza utente (chat), ogni singola risposta fornita viene sistematicamente registrata nella sessione attiva.
 
-**Relazioni `<<include>>` nel progetto:**
+#### 2. Relazioni di estensione (`<<extend>>`)
+La relazione di *extend* descrive un comportamento **opzionale** che si aggiunge al caso d'uso base solo se si verificano determinate condizioni o su specifica scelta dell'utente.
 
-- `Inserisci dati di contatto` <<include>> `Verifica formato email/telefono` – la validazione è sempre obbligatoria prima di salvare i contatti.
-- `Gestisci lead` <<include>> `Verifica autenticazione admin` – il pannello è sempre protetto da login.
-- `Rispondi alle domande guidate` <<include>> `Salva risposta in sessione` – ogni risposta viene sempre registrata nella sessione attiva.
-
-**Relazioni `<<extend>>` nel progetto:**
-
-- `Richiedi sopralluogo` <<extend>> `Visualizza stima e riepilogo` – richiedere il sopralluogo è un'azione opzionale disponibile solo dopo aver visto la stima.
-- `Esporta lead in CSV` <<extend>> `Gestisci lead` – l'esportazione è una funzione aggiuntiva, non sempre usata dall'amministratore.
+*   **Visualizza stima e riepilogo $\leftarrow$ Richiedi sopralluogo**  
+    Una volta visualizzato il preventivo generato, l'utente può scegliere di richiedere un appuntamento fisico. È un'azione aggiuntiva che non interrompe il flusso principale se non viene selezionata.
+*   **Gestisci lead $\leftarrow$ Esporta lead in CSV**  
+    L'amministratore, mentre consulta l'elenco dei contatti, ha la possibilità di scaricare i dati in formato CSV. L'esportazione è una funzione extra che estende le normali capacità della dashboard.
 
 ### 6.4 Diagramma dei casi d'uso
 
