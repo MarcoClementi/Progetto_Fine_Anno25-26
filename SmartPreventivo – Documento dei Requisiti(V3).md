@@ -163,28 +163,29 @@ flowchart TB
         UC1("Avvia chat")
         UC2("Rispondi alle domande guidate")
         UC3("Inserisci dati di contatto")
-        UC5("Visualizza stima e riepilogo")
-        UC6("Richiedi sopralluogo")
-        UC7("Verifica autenticazione admin")
-        UC9("Esporta lead in CSV")
+        UC4("Visualizza stima e riepilogo")
+        UC5("Richiedi sopralluogo")
+        UC6("Verifica autenticazione admin")
+        UC7("Esporta lead in CSV")
         UC8("Gestisci lead")
   end
-    V(["Visitatore"]) -- generalizzazione --> U(["Utente"])
-    V --> UC1 & UC2 
-    A(["Amministratore"]) --> UC7  
+    V["Visitatore"] -- generalizzazione --> U["Utente"]
+    V --> UC1
+    A["Amministratore"] --> UC6
       
-    UC7 -. &lt;&gt; .-> UC8
+    
   
    
      %% Relazioni include
     UC1 -.->|"<<include>>"| UC2
-    UC4 -.->|"<<include>>"| UC5
-
+    UC2 -.->|"<<include>>"| UC3
+    UC3 -.->|"<<include>>"| UC4
+   
 
     %% Relazioni extend
-    UC9 -.->|"<<extend>>"| UC8
-    UC2 -.->|"<<extend>>"| UC3
-    UC3 -.->|"<<extend>>"| UC4
+    UC7 -.->|"<<extend>>"| UC8
+    UC4 -.->|"<<extend>>"| UC5
+    UC6 -.->|"<<extend>>"| UC8
 ```
 
 ---
