@@ -162,9 +162,9 @@ flowchart TB
  subgraph subGraph["Sistema SmartPreventivo"]
         UC1("Avvia chat")
         UC2("Rispondi alle domande guidate")
-        UC5("Inserisci dati di contatto")
-        UC3("Visualizza stima e riepilogo")
-        UC4("Richiedi sopralluogo")
+        UC3("Inserisci dati di contatto")
+        UC5("Visualizza stima e riepilogo")
+        UC6("Richiedi sopralluogo")
         UC7("Verifica autenticazione admin")
         UC9("Esporta lead in CSV")
         UC8("Gestisci lead")
