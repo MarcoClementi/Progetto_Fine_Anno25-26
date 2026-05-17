@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartPreventivo – Stima gratuita in pochi minuti</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <!-- ── Navbar ─────────────────────────────────── -->
+  <nav class="navbar">
+    <a class="navbar-logo" href="/">Smart<span>Preventivo</span></a>
+    <div class="navbar-links">
+      <a href="/admin/login">Area Admin</a>
+    </div>
+  </nav>
+
+  <!-- ── Hero ───────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-badge">🆓 Stima gratuita • Nessuna registrazione</div>
+    <h1>Il tuo preventivo<br><em>in pochi minuti</em></h1>
+    <p>
+      Rispondi a qualche domanda guidata e ricevi subito una stima di costo
+      indicativa per il tuo lavoro. Senza aspettare, senza telefonate.
+    </p>
+    <button class="hero-btn" id="btn-apri-hero">
+      💬 Inizia la chat gratuita
+    </button>
+  </section>
+
+  <!-- ── Feature cards ──────────────────────────── -->
+  <div class="features">
+    <div class="feature-card">
+      <div class="icon">⚡</div>
+      <h3>Risposta immediata</h3>
+      <p>Nessuna attesa. Il bot risponde in meno di un secondo e ti guida passo dopo passo.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🎯</div>
+      <h3>Stima personalizzata</h3>
+      <p>Domande specifiche per ogni tipo di lavoro, per una stima accurata e pertinente.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🔒</div>
+      <h3>I tuoi dati al sicuro</h3>
+      <p>I dati vengono usati solo per contattarti. Nessuno spam, nessuna cessione a terzi.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">📧</div>
+      <h3>Stima via email</h3>
+      <p>Ricevi il riepilogo completo nella tua casella per rileggertelo con calma.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🏗️</div>
+      <h3>Sopralluogo gratuito</h3>
+      <p>Richiedi un sopralluogo direttamente dalla chat. Un tecnico ti contatterà entro 24 ore.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">📱</div>
+      <h3>Mobile-first</h3>
+      <p>Funziona perfettamente su smartphone e tablet, senza scaricare nessuna app.</p>
+    </div>
+  </div>
+
+  <!-- ── Footer ─────────────────────────────────── -->
+  <footer>
+    <p>© 2026 SmartPreventivo · Progetto didattico Informatica 5ª ·
+       <a href="/admin/login">Area riservata</a>
+    </p>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════
+       CHATBOT WIDGET
+  ════════════════════════════════════════════════ -->
+
+  <!-- Pulsante flottante -->
+  <button id="chat-fab" title="Apri chatbot">💬</button>
+
+  <!-- Finestra chat -->
+  <div id="chat-window" role="dialog" aria-label="SmartPreventivo Chatbot">
+
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="chat-header-avatar">🤖</div>
+      <div class="chat-header-info">
+        <div class="chat-header-name">SmartPreventivo</div>
+        <div class="chat-header-status">Online ora</div>
+      </div>
+      <button id="btn-chiudi-chat" title="Chiudi chat">✕</button>
+    </div>
+
+    <!-- Progress bar domande -->
+    <div class="chat-progress">
+      <div class="chat-progress-bar" id="chat-progress-bar" style="width:0%"></div>
+    </div>
+
+    <!-- Area messaggi -->
+    <div id="chat-messaggi"></div>
+
+    <!-- Area pulsanti / form dinamici -->
+    <div id="chat-opzioni"></div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+  <script>
+    // Pulsante hero → apre direttamente la chat
+    document.getElementById('btn-apri-hero').addEventListener('click', () => {
+      document.getElementById('chat-fab').click();
+    });
+  </script>
+
+</body>
+</html>
